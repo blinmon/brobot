@@ -7,9 +7,11 @@ import scripts.brotein.bminer.constants.IDs;
 import scripts.brotein.bminer.constants.Locations;
 import scripts.brotein.bminer.util.Experience;
 import scripts.brotein.bminer.util.Location;
+import scripts.brotein.bminer.util.Settings;
 import scripts.brotein.bminer.util.Utility;
 
 import java.awt.*;
+import java.io.File;
 import java.util.concurrent.Callable;
 
 
@@ -111,6 +113,10 @@ public class BroteinMiner extends PollingScript<ClientContext> implements Messag
         useBank = dialog.getBanking();
         useM1D1 = dialog.getM1D1();
         useShiftDrop = dialog.getShiftDrop();
+
+        String[] pussy = {Integer.toString(dialog.getLocationIndex()), Integer.toString(currentOre), Settings.parseBoolean(useBank), Settings.parseBoolean(useM1D1), Settings.parseBoolean(useShiftDrop)};
+        Settings settings = new Settings();
+        settings.setProperty(settings.getKeys(), pussy, new File(getStorageDirectory(), "settings.ini"));
 
         dialog.dispose();
     }
