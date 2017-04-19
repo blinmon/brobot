@@ -71,7 +71,18 @@ public class BroteinMiner extends PollingScript<ClientContext> implements Messag
 
         orePrices = Utility.getGePrice(IDs.ITEMS_ORE);
 
+        Settings settings = new Settings();
+        String values[] = new String[5];
+        final File file = new File(getStorageDirectory(), "settings.ini");
+        for (int i = 0; i < values.length; i++) {
+            values[i] = settings.getProperty(settings.getKeys()[i], file);
+        }
         final GUI dialog = new GUI(new javax.swing.JFrame(), true);
+        dialog.setLocation(Integer.parseInt(values[0]));
+        dialog.setOre(Integer.parseInt(values[1]));
+        dialog.setBank(Boolean.parseBoolean(values[2]));
+        dialog.setM1D1(Boolean.parseBoolean(values[3]));
+        dialog.setShiftDrop(Boolean.parseBoolean(values[4]));
         dialog.addWindowListener(new java.awt.event.WindowAdapter() {
             @Override
             public void windowClosing(java.awt.event.WindowEvent e) {
@@ -114,10 +125,14 @@ public class BroteinMiner extends PollingScript<ClientContext> implements Messag
         useM1D1 = dialog.getM1D1();
         useShiftDrop = dialog.getShiftDrop();
 
-        String[] pussy = {Integer.toString(dialog.getLocationIndex()), Integer.toString(currentOre), Settings.parseBoolean(useBank), Settings.parseBoolean(useM1D1), Settings.parseBoolean(useShiftDrop)};
-        Settings settings = new Settings();
-        settings.setProperty(settings.getKeys(), pussy, new File(getStorageDirectory(), "settings.ini"));
-
+        String[] newValues = {
+                Integer.toString(dialog.getLocationIndex()),
+                Integer.toString(currentOre),
+                Settings.parseBoolean(useBank),
+                Settings.parseBoolean(useM1D1),
+                Settings.parseBoolean(useShiftDrop)
+        };
+        settings.setProperty(settings.getKeys(), newValues, file);
         dialog.dispose();
     }
 
@@ -681,19 +696,19 @@ public class BroteinMiner extends PollingScript<ClientContext> implements Messag
         g.fillRect(0, 0, 200, 25);
         g.fillRect(5, 90, 190, 2);
         g.setColor(new Color(15, 18, 123));
-        g.fillOval(12, 93, 25, 25);
+        g.fillOval(12, 95, 25, 25);
         g.setColor(new Color(15, 137, 20));
-        g.fillOval(63, 93, 25, 25);
+        g.fillOval(63, 95, 25, 25);
         g.setColor(new Color(121, 25, 12));
-        g.fillOval(112, 93, 25, 25);
+        g.fillOval(112, 95, 25, 25);
         g.setColor(new Color(180, 178, 178));
-        g.fillOval(163, 93, 25, 25);
+        g.fillOval(163, 95, 25, 25);
         g.setColor(new Color(245, 245, 245));
         g.setFont(BODY);
-        g.drawString(String.format("%d", oreCount[ORE_SAPHIRE]), 21, 110);
-        g.drawString(String.format("%d", oreCount[ORE_EMERALD]), 72, 110);
-        g.drawString(String.format("%d", oreCount[ORE_RUBY]), 121, 110);
-        g.drawString(String.format("%d", oreCount[ORE_DIAMOND]), 172, 110);
+        g.drawString(String.format("%d", oreCount[ORE_SAPHIRE]), 21, 112);
+        g.drawString(String.format("%d", oreCount[ORE_EMERALD]), 72, 112);
+        g.drawString(String.format("%d", oreCount[ORE_RUBY]), 121, 112);
+        g.drawString(String.format("%d", oreCount[ORE_DIAMOND]), 172, 112);
         g.setColor(new Color(170, 170, 170));
         g.setFont(HEADING1);
         g.drawString(String.format("Brotein's F2P Miner"), 10, 20);
@@ -703,19 +718,19 @@ public class BroteinMiner extends PollingScript<ClientContext> implements Messag
                 experience.getExperienceGained(Constants.SKILLS_MINING),
                 experience.getExperienceHour(Constants.SKILLS_MINING)),
                 5, 60);
-        g.drawString(String.format("Clay: %d", oreCount[ORE_CLAY]), 5, 130);
-        g.drawString(String.format("Tin: %d", oreCount[ORE_TIN]), 5, 150);
-        g.drawString(String.format("Copper: %d", oreCount[ORE_COPPER]), 5, 170);
-        g.drawString(String.format("Iron: %d", oreCount[ORE_IRON]), 5, 190);
-        g.drawString(String.format("Silver: %d", oreCount[ORE_SILVER]), 5, 210);
-        g.drawString(String.format("Gold: %d", oreCount[ORE_GOLD]), 105, 130);
-        g.drawString(String.format("Mithril: %d", oreCount[ORE_MITHRIL]), 105, 150);
-        g.drawString(String.format("Addy: %d", oreCount[ORE_ADAMANITE]), 105, 170);
-        g.drawString(String.format("Rune: %d", oreCount[ORE_RUNEITE]), 105, 190);
-        g.drawString(String.format("Ess: %d", oreCount[ORE_RUNE_ESSENCE] + oreCount[ORE_PURE_ESSENCE]), 105, 210);
+        g.drawString(String.format("Clay: %d", oreCount[ORE_CLAY]), 5, 135);
+        g.drawString(String.format("Tin: %d", oreCount[ORE_TIN]), 5, 155);
+        g.drawString(String.format("Copper: %d", oreCount[ORE_COPPER]), 5, 175);
+        g.drawString(String.format("Iron: %d", oreCount[ORE_IRON]), 5, 195);
+        g.drawString(String.format("Silver: %d", oreCount[ORE_SILVER]), 5, 215);
+        g.drawString(String.format("Gold: %d", oreCount[ORE_GOLD]), 105, 135);
+        g.drawString(String.format("Mithril: %d", oreCount[ORE_MITHRIL]), 105, 155);
+        g.drawString(String.format("Addy: %d", oreCount[ORE_ADAMANITE]), 105, 175);
+        g.drawString(String.format("Rune: %d", oreCount[ORE_RUNEITE]), 105, 195);
+        g.drawString(String.format("Ess: %d", oreCount[ORE_RUNE_ESSENCE] + oreCount[ORE_PURE_ESSENCE]), 105, 215);
         g.drawString(String.format("Profit: %,dgp(%,d/HR)",
                 calculateProfit(IDs.ITEMS_ORE, orePrices, oreCount),
-                (int) ((calculateProfit(IDs.ITEMS_ORE, orePrices, oreCount) * 3600000D) / getRuntime())), 5, 230);
+                (int) ((calculateProfit(IDs.ITEMS_ORE, orePrices, oreCount) * 3600000D) / getRuntime())), 5, 235);
         g.setColor(new Color(68, 68, 68));
         g.fillRect(10, 65, 180, 20);
         g.setColor(new Color(146, 211, 110));

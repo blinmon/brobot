@@ -345,16 +345,11 @@
  */
 package scripts.brotein.bminer.bot;
 
-import org.powerbot.script.AbstractScript;
-import org.powerbot.script.ClientContext;
-
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Enumeration;
-import java.util.Properties;
 
 /**
  * @author noemailgmail
@@ -382,6 +377,7 @@ public class GUI extends javax.swing.JDialog {
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JTextArea jTextArea2;
+
     /**
      * Creates new form GUI
      */
@@ -644,13 +640,32 @@ public class GUI extends javax.swing.JDialog {
         return jCheckBox1.isSelected();
     }
 
+    public void setShiftDrop(boolean useShiftDrop) {
+        jCheckBox1.setSelected(useShiftDrop);
+    }
+
     public boolean getM1D1() {
         return jRadioButton2.isSelected();
+    }
+
+    public void setM1D1(boolean useM1D1) {
+        jRadioButton2.setSelected(useM1D1);
+        jRadioButton4.setSelected(!useM1D1);
     }
 
     public boolean getBanking() {
         return jCheckBox2.isSelected();
     }
 
+    public void setLocation(int Location) {
+        jComboBox1.setSelectedIndex(Location);
+    }
 
+    public void setOre(int Ore) {
+        jComboBox2.setSelectedIndex(Ore);
+    }
+
+    public void setBank(boolean useBank) {
+        jCheckBox2.setSelected(useBank);
+    }
 }
