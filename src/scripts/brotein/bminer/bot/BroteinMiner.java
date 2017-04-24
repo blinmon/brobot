@@ -12,6 +12,8 @@ import scripts.brotein.bminer.util.Utility;
 
 import java.awt.*;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.concurrent.Callable;
 
 
@@ -74,6 +76,9 @@ public class BroteinMiner extends PollingScript<ClientContext> implements Messag
         Settings settings = new Settings();
         String values[] = new String[5];
         final File file = new File(getStorageDirectory(), "settings.ini");
+        if(!file.exists()){
+            settings.setProperty(settings.getKeys(),new String[]{"0", "0", "false", "true", "false"}, file);
+        }
         for (int i = 0; i < values.length; i++) {
             values[i] = settings.getProperty(settings.getKeys()[i], file);
         }
